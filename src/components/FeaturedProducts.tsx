@@ -3,35 +3,35 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 
-// Sample product data - would come from API/CMS in real implementation
+// Updated product data with real Italaco anime shirts
 const products = [
   {
     id: 1,
-    name: "Quantum Jacket",
-    description: "Weather-adaptive smart fabric with thermoregulation",
-    price: 399.99,
-    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    name: "Demon Slayer Anime T-Shirt",
+    description: "Breathable cotton blend with iconic Demon Slayer design",
+    price: 599,
+    image: "https://italaco.shop/cdn/shop/files/anime-merch-store-demon-slayer-breathable-cotton-blend-with-iconic-demon-slayer-design-men-anime-t-shirts-italaco-28599852531879_1024x1024@2x.jpg?v=1708692487",
   },
   {
     id: 2,
-    name: "Nebula Shirt",
-    description: "Ultra-breathable with electromagnetic shielding",
-    price: 149.99,
-    image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    name: "One Piece T-Shirt",
+    description: "Premium quality graphic t-shirt featuring One Piece characters",
+    price: 549,
+    image: "https://italaco.shop/cdn/shop/files/anime-merch-store-one-piece-mugiwara-boys-premium-quality-graphic-t-shirt-featuring-one-piece-characters-men-anime-t-shirts-italaco-28366596628647_1024x1024@2x.jpg?v=1708691765",
   },
   {
     id: 3,
-    name: "Gravity Boots",
-    description: "Impact-absorbing soles with kinetic energy recovery",
-    price: 299.99,
-    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    name: "Naruto Akatsuki T-Shirt",
+    description: "100% cotton Naruto Akatsuki Cloud design for anime fans",
+    price: 599,
+    image: "https://italaco.shop/cdn/shop/files/anime-merch-store-naruto-akatsuki-cloud-100-cotton-naruto-akatsuki-cloud-design-for-anime-fans-men-anime-t-shirts-italaco-28599977582759_1024x1024@2x.jpg?v=1708692988",
   },
   {
     id: 4,
-    name: "Pulse Backpack",
-    description: "Solar-powered with inductive charging compartments",
-    price: 249.99,
-    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    name: "Attack on Titan T-Shirt",
+    description: "High-quality Survey Corps emblem graphic tee",
+    price: 599,
+    image: "https://italaco.shop/cdn/shop/files/anime-merch-store-aot-survey-corps-high-quality-survey-corps-emblem-graphic-tee-men-anime-t-shirts-italaco-28599828332711_1024x1024@2x.jpg?v=1708692412",
   },
 ];
 
@@ -59,7 +59,7 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
         <p className="text-sm text-foreground/70 mb-4 line-clamp-2">{product.description}</p>
         
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-italaco-primary">${product.price}</span>
+          <span className="text-lg font-bold text-italaco-primary">₹{product.price}</span>
           
           <Button size="sm" className="bg-italaco-primary hover:bg-italaco-primary/90 text-white">
             <ShoppingCart className="h-4 w-4 mr-2" />
@@ -87,9 +87,9 @@ const FeaturedProducts = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">Featured Products</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">Anime Collection</h2>
             <p className="text-foreground/70 max-w-2xl">
-              Cutting-edge designs engineered for performance and styled for the future.
+              Premium anime-inspired t-shirts featuring your favorite characters with exceptional quality and design.
             </p>
           </div>
           <Button variant="link" className="text-italaco-primary flex items-center group mt-4 md:mt-0">
