@@ -98,7 +98,7 @@ const Hero = () => {
             <span className="inline-block">
               <span className="text-italaco-primary text-glow">ITALACO</span>
             </span>
-            <span className="inline-block"> ANIME</span>
+            <span className="inline-block"> SHOP</span>
           </motion.h1>
           
           <motion.div
