@@ -1,90 +1,154 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0] } }
+};
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, []);
-
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setMousePosition({
+      x: (e.clientX / window.innerWidth) - 0.5,
+      y: (e.clientY / window.innerHeight) - 0.5
+    });
+  };
+  
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-italaco-dark via-background to-italaco-dark z-0"></div>
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Dark background with grid overlay */}
+      <div className="absolute inset-0 bg-background z-0">
+        <div 
+          className="absolute inset-0 opacity-20" 
+          style={{ 
+            backgroundImage: `linear-gradient(to right, rgba(110, 89, 165, 0.1) 1px, transparent 1px), 
+                             linear-gradient(to bottom, rgba(110, 89, 165, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px' 
+          }}
+        />
+      </div>
       
-      {/* Grid overlay */}
+      {/* Moving gradient effect */}
       <div 
-        className="absolute inset-0 z-10 opacity-20" 
-        style={{ 
-          backgroundImage: `linear-gradient(to right, rgba(110, 89, 165, 0.1) 1px, transparent 1px), 
-                           linear-gradient(to bottom, rgba(110, 89, 165, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px' 
+        className="absolute inset-0 opacity-40 z-0 transition-all duration-1000 ease-out"
+        style={{
+          background: `radial-gradient(circle at ${50 + mousePosition.x * 30}% ${50 + mousePosition.y * 20}%, 
+                     rgba(110, 89, 165, 0.15) 0%, 
+                     rgba(0, 0, 0, 0) 60%)`,
         }}
-      ></div>
+      />
+      
+      {/* Ambient orbs */}
+      <motion.div 
+        className="absolute w-[400px] h-[400px] rounded-full bg-italaco-primary/10 filter blur-[100px]"
+        style={{
+          x: mousePosition.x * -30,
+          y: mousePosition.y * -30,
+        }}
+        transition={{ type: "spring", stiffness: 10, damping: 20 }}
+      />
+      <motion.div 
+        className="absolute right-[10%] top-[30%] w-[300px] h-[300px] rounded-full bg-italaco-accent/5 filter blur-[80px]"
+        style={{
+          x: mousePosition.x * 20,
+          y: mousePosition.y * 20,
+        }}
+        transition={{ type: "spring", stiffness: 8, damping: 15 }}
+      />
       
       {/* Content */}
-      <div className="container mx-auto px-4 z-20">
-        <div className="flex flex-col items-center text-center">
-          <div
-            className={`transform transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
+      <div className="container mx-auto px-4 pt-20 z-20 relative">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            variants={itemVariants}
+            className="mb-4"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-italaco-primary text-glow">Future</span> of Fashion
-            </h1>
-          </div>
+            <span className="inline-block py-1 px-3 rounded-full bg-italaco-primary/10 text-italaco-primary text-xs font-medium tracking-wider uppercase">
+              The Future of Fashion
+            </span>
+          </motion.div>
           
-          <div
-            className={`max-w-2xl mx-auto transition-all duration-1000 delay-300 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
+          <motion.h1
+            variants={itemVariants}
+            className="text-5xl md:text-7xl xl:text-8xl font-extrabold mb-6 tracking-tight leading-[1.1]"
           >
-            <p className="text-xl md:text-2xl text-foreground/80 mb-8">
-              Discover the next generation of innovative design and sustainable technology. 
-              Our collections redefine what's possible in modern apparel.
+            <span className="inline-block">
+              <span className="text-italaco-primary text-glow">ITALACO</span>
+            </span>
+            <span className="inline-block"> ANIME</span>
+          </motion.h1>
+          
+          <motion.div
+            variants={itemVariants}
+            className="max-w-2xl mx-auto"
+          >
+            <p className="text-lg md:text-xl text-foreground/80 mb-10">
+              Premium anime-inspired apparel designed with future-focused technology and sustainable materials. 
+              Our collections redefine what's possible in modern fashion.
             </p>
-          </div>
+          </motion.div>
           
-          <div
-            className={`flex flex-col sm:flex-row gap-4 transition-all duration-1000 delay-500 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button
               size="lg"
-              className="bg-italaco-primary hover:bg-italaco-primary/90 text-white px-8 rounded-md group"
+              className="bg-italaco-primary hover:bg-italaco-primary/90 text-white px-8 py-7 rounded-md text-lg group"
             >
-              Shop Collection
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Explore Collection
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="border-italaco-primary/30 text-foreground hover:bg-italaco-primary/20 rounded-md"
+              className="border-italaco-primary/30 text-foreground hover:bg-italaco-primary/10 rounded-md py-7 text-lg"
             >
-              Learn More
+              About Technology
             </Button>
-          </div>
+          </motion.div>
         </div>
+        
+        {/* Scroll indicator */}
+        <motion.div 
+          variants={itemVariants}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        >
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="text-foreground/50 hover:text-italaco-primary hover:bg-transparent flex flex-col gap-2"
+            onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
+          >
+            <span className="text-xs uppercase tracking-widest">Scroll</span>
+            <ArrowDown className="h-4 w-4 animate-bounce" />
+          </Button>
+        </motion.div>
       </div>
-      
-      {/* Animated circle decoration */}
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-italaco-primary/20 filter blur-3xl animate-pulse-slow"></div>
-      <div className="absolute top-40 right-1/4 w-64 h-64 rounded-full bg-italaco-accent/10 filter blur-3xl animate-pulse-slow"></div>
-    </div>
+    </motion.div>
   );
 };
 
