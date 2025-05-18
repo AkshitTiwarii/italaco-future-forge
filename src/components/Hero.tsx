@@ -13,9 +13,9 @@ const Hero = () => {
   // Improved parallax scroll effects with correct easing
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    // Use standard scroll container properties that are supported by TypeScript definitions
-    container: window,
-    layoutEffect: false
+    // Remove the container property since it's causing TypeScript issues
+    // and rely on the default container (viewport)
+    offset: ["start start", "end start"]
   });
   
   // Use transform without custom easing (framer-motion will handle smoothing)
