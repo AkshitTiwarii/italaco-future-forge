@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to Italaco.shop
 
 ## Project info
 
@@ -8,8 +8,7 @@
 
 There are several ways of editing your application.
 
-**Use Lovable**
-
+**
 Simply visit the [Lovable Project](https://lovable.dev/projects/ad0ac953-bd80-4a84-be7d-86d325e09f3d) and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
