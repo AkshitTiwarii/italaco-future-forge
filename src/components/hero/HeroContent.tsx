@@ -10,10 +10,8 @@ interface HeroContentProps {
 }
 
 const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
-  // Improved content animation with better easing
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"], {
-    ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for smoother motion
-  });
+  // Improved content animation with standard easing
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const handleScrollToNextSection = () => {
     window.scrollTo({

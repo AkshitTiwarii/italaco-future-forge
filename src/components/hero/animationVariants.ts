@@ -1,4 +1,7 @@
 
+// Define standardized easing curve to use throughout animations
+export const standardEasing = [0.22, 1, 0.36, 1];
+
 export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -6,7 +9,7 @@ export const containerVariants = {
     transition: {
       staggerChildren: 0.15,
       delayChildren: 0.3,
-      ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier for smoother animation
+      ease: "easeInOut", // Use named easing instead of array
       duration: 0.8
     }
   }
@@ -19,7 +22,7 @@ export const itemVariants = {
     y: 0, 
     transition: { 
       duration: 0.8, 
-      ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier easing
+      ease: "easeInOut" // Use named easing instead of array
     } 
   }
 };
