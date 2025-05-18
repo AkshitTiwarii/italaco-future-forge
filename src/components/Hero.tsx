@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowDown } from "lucide-react";
@@ -81,10 +80,10 @@ const Hero = () => {
   const [particles] = useState(generateParticles);
   const heroRef = useRef(null);
   
-  // Parallax scroll effects
+  // Parallax scroll effects - updated to use correct options
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ["start start", "end start"]
+    // Remove the offset property which is causing the type error
   });
   
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
