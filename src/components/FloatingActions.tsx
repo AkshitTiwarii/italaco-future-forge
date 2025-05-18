@@ -2,10 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Search, ArrowUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '@/contexts/CartContext';
 
 const FloatingActions = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [cartItems, setCartItems] = useState(0); // This would come from your cart state
+  const { cart } = useCart();
+  const navigate = useNavigate();
+  
+  const cartItemCount = cart?.items.length || 0;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,11 +51,12 @@ const FloatingActions = () => {
         whileHover={{ scale: 1.1 }}
         className="bg-italaco-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg relative"
         aria-label="View cart"
+        onClick={() => navigate("/cart")}
       >
         <ShoppingCart size={20} />
-        {cartItems > 0 && (
+        {cartItemCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            {cartItems}
+            {cartItemCount}
           </span>
         )}
       </motion.button>
