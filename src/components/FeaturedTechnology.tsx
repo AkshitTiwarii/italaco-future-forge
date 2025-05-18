@@ -1,11 +1,11 @@
 
-import React from "react";
+import React, { forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-const FeaturedTechnology = () => {
+const FeaturedTechnology = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <section className="py-20 relative">
+    <section ref={ref} className="py-32 relative"> {/* Attach the ref to the main element */}
       {/* Background gradients */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent"></div>
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent"></div>
@@ -117,6 +117,8 @@ const FeaturedTechnology = () => {
       </div>
     </section>
   );
-};
+});
+
+FeaturedTechnology.displayName = 'FeaturedTechnology'; // Add display name for debugging
 
 export default FeaturedTechnology;

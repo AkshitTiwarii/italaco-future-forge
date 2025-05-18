@@ -7,9 +7,10 @@ import { itemVariants } from "./animationVariants";
 
 interface HeroContentProps {
   scrollYProgress: MotionValue<number>;
+  onAboutTechClick?: () => void; // Make the prop optional
 }
 
-const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
+const HeroContent = ({ scrollYProgress, onAboutTechClick }: HeroContentProps) => {
   // Improved content animation with standard easing
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
@@ -73,6 +74,7 @@ const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
             variant="outline"
             size="lg"
             className="border-italaco-primary/30 text-foreground hover:bg-italaco-primary/10 rounded-md py-7 text-lg backdrop-blur-sm"
+            onClick={onAboutTechClick} // This calls the function passed from the parent
           >
             About Technology
           </Button>

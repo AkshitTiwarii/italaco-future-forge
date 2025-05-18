@@ -1,6 +1,6 @@
 
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion /* Removed useScroll, useTransform */ } from "framer-motion"; // Removed useScroll and useTransform
 import Hero from "@/components/Hero";
 import FeatureCards from "@/components/landing/FeatureCards";
 import AboutSection from "@/components/landing/AboutSection";
@@ -13,10 +13,23 @@ const LandingPage = () => {
   // Refs for scroll navigation
   const aboutRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  // Removed splineRef
+  // const splineRef = useRef<HTMLDivElement>(null); // Ref for the spline container
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Removed Scroll animation for the spline iframe
+  // const { scrollYProgress } = useScroll({
+  //   target: splineRef,
+  //   // Change offset to [0, 1]
+  //   offset: [0, 1], // Track scroll from target start entering to target end leaving viewport
+  // });
+
+  // Removed Use transform with the new scrollYProgress range
+  // Adjust the parallax range if needed based on the new offset
+  // const parallaxY = useTransform(scrollYProgress, [0, 1], ["-50%", "50%"]); // Simple vertical parallax
 
   return (
     <>
@@ -31,8 +44,25 @@ const LandingPage = () => {
 
       <main className="bg-background min-h-screen overflow-hidden">
         {/* Hero Section */}
-        <Hero />
-        
+        <Hero onAboutTechClick={() => scrollToSection(aboutRef)} />
+
+        {/* Removed Spline Iframe Section with Animation */}
+        {/*
+        <motion.div
+          ref={splineRef} // Attach the ref
+          style={{ y: parallaxY }} // Apply the parallax effect
+          className="relative z-10 w-full h-[600px] my-20" // Adjust height as needed
+        >
+          <iframe
+            src='https://my.spline.design/3dpathsfactoryletterscopy-YuxKBPyyOAibk5CV0uYDtj7N/'
+            frameBorder='0'
+            width='100%'
+            height='100%'
+            className="absolute inset-0" // Make iframe fill the container
+          ></iframe>
+        </motion.div>
+        */}
+
         {/* Feature Cards Section */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -43,7 +73,7 @@ const LandingPage = () => {
         >
           <FeatureCards />
         </motion.div>
-        
+
         {/* About/Services Section */}
         <motion.div
           ref={aboutRef}
@@ -55,7 +85,7 @@ const LandingPage = () => {
         >
           <AboutSection />
         </motion.div>
-        
+
         {/* Contact Form Section */}
         <motion.div
           ref={contactRef}
@@ -67,7 +97,7 @@ const LandingPage = () => {
         >
           <ContactSection />
         </motion.div>
-        
+
         {/* Footer */}
         <Footer />
       </main>

@@ -71,7 +71,7 @@ const Navbar = () => {
               Products
             </Link>
             <Link
-              to="/about"
+              to="/landing" // Changed from "/about" to "/landing"
               className="text-sm font-medium text-foreground/80 hover:text-italaco-primary transition-colors"
             >
               About
@@ -174,7 +174,7 @@ const Navbar = () => {
                 Products
               </Link>
               <Link
-                to="/about"
+                to="/landing" // Changed from "/about" to "/landing"
                 className="text-sm font-medium text-foreground/80 hover:text-italaco-primary transition-colors"
                 onClick={() => setIsOpen(false)}
               >

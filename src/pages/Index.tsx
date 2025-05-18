@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeaturedProducts from "@/components/FeaturedProducts";
@@ -9,21 +9,36 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
-  
+  // Remove featuredTechnologyRef as it's no longer needed for the button
+  // const featuredTechnologyRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate(); // Get the navigate function
+
   useEffect(() => {
     // For SEO and accessibility
     document.title = "ITALACO | Future of Fashion";
-    
+
     // Simulate loading assets
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
-    
+
     return () => clearTimeout(timer);
   }, []);
+
+  // Remove the scrollToFeaturedTechnology function
+  // const scrollToFeaturedTechnology = () => {
+  //   featuredTechnologyRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // };
+
+  // New function to navigate to the landing page
+  const navigateToLandingAbout = () => {
+    navigate('/landing');
+  };
 
   return (
     <>
@@ -95,9 +110,11 @@ const Index = () => {
           >
             <Navbar />
             <main className="flex-grow">
-              <Hero />
+              {/* Pass the new navigation function to Hero */}
+              <Hero onAboutTechClick={navigateToLandingAbout} />
               <FeaturedProducts />
-              <FeaturedTechnology />
+              {/* Keep FeaturedTechnology, but the ref is no longer used by the button */}
+              <FeaturedTechnology /* ref={featuredTechnologyRef} */ />
               <Newsletter />
             </main>
             <Footer />

@@ -6,7 +6,11 @@ import BackgroundEffects from "./hero/BackgroundEffects";
 import HeroContent from "./hero/HeroContent";
 import { containerVariants } from "./hero/animationVariants";
 
-const Hero = () => {
+interface HeroProps {
+  onAboutTechClick: () => void; // Define the prop type
+}
+
+const Hero = ({ onAboutTechClick }: HeroProps) => { // Accept the prop
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
   
@@ -49,7 +53,7 @@ const Hero = () => {
       />
       
       {/* Content */}
-      <HeroContent scrollYProgress={scrollYProgress} />
+      <HeroContent scrollYProgress={scrollYProgress} onAboutTechClick={onAboutTechClick} /> {/* Pass the prop */}
     </motion.div>
   );
 };
