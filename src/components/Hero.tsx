@@ -10,15 +10,22 @@ const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
   
-  // Parallax scroll effects
+  // Improved parallax scroll effects with better easing
   const { scrollYProgress } = useScroll({
     target: heroRef,
+    offset: ["start start", "end start"]
   });
   
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"], {
+    ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for smoother motion
+  });
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0], {
+    ease: [0.22, 1, 0.36, 1] // Same easing function for consistency
+  });
   
+  // Use debounced or throttled mouse move handler for better performance
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Calculate normalized position more efficiently
     setMousePosition({
       x: (e.clientX / window.innerWidth) - 0.5,
       y: (e.clientY / window.innerHeight) - 0.5

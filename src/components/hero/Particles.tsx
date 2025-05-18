@@ -1,45 +1,57 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-// Particle configuration
+// Optimized particle configuration
 const particlesConfig = {
-  count: 50,
+  count: 40, // Reduced count for better performance
   size: { min: 1, max: 3 },
   color: "#6E59A5",
-  speed: { min: 0.1, max: 0.5 }
+  speed: { min: 0.08, max: 0.4 } // Slightly slower for smoother movement
 };
 
-// Animated particle element
+// Optimized animated particle element using requestAnimationFrame
 const Particle = ({ size, position, speed }: { size: number, position: { x: number, y: number }, speed: number }) => {
   const [pos, setPos] = useState(position);
+  const requestRef = useRef<number>();
+  const previousTimeRef = useRef<number>();
   
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const animate = (time: number) => {
+    if (previousTimeRef.current !== undefined) {
       setPos(prev => ({
         x: prev.x,
-        y: prev.y >= 100 ? 0 : prev.y + speed
+        y: prev.y >= 100 ? 0 : prev.y + speed * 0.5
       }));
-    }, 16); // ~60fps
-
-    return () => clearInterval(interval);
-  }, [speed]);
+    }
+    previousTimeRef.current = time;
+    requestRef.current = requestAnimationFrame(animate);
+  };
+  
+  useEffect(() => {
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, [speed]); // Only recreate animation if speed changes
 
   return (
     <div 
-      className="absolute bg-italaco-primary/80 rounded-full pointer-events-none"
+      className="absolute bg-italaco-primary/80 rounded-full pointer-events-none will-change-transform"
       style={{
         width: `${size}px`,
         height: `${size}px`,
         left: `${pos.x}%`,
         top: `${pos.y}%`,
         opacity: Math.random() * 0.5 + 0.2,
-        filter: `blur(${Math.random() + 0.5}px)`
+        filter: `blur(${Math.random() + 0.5}px)`,
+        transform: 'translate3d(0,0,0)' // Hardware acceleration
       }}
     />
   );
 };
 
-// Generate particles
+// Generate particles with memoization
 const generateParticles = () => {
   const particles = [];
   for (let i = 0; i < particlesConfig.count; i++) {
@@ -57,11 +69,12 @@ const generateParticles = () => {
 };
 
 const Particles = () => {
-  const [particles] = useState(generateParticles);
+  // Use useRef to memoize particles and prevent recreating them on each render
+  const particlesRef = useRef(generateParticles());
   
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {particles.map((particle) => (
+      {particlesRef.current.map((particle) => (
         <Particle
           key={particle.id}
           size={particle.size}
@@ -73,4 +86,4 @@ const Particles = () => {
   );
 };
 
-export default Particles;
+export default React.memo(Particles); // Memoize to prevent unnecessary re-renders

@@ -8,6 +8,7 @@ import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,20 +27,47 @@ const Index = () => {
 
   return (
     <>
+      <Helmet>
+        <title>ITALACO | Future of Fashion Technology & Sustainable Apparel</title>
+        <meta name="description" content="Discover ITALACO's cutting-edge fashion with innovative materials and futuristic designs. Premium anime-inspired apparel with sustainable technology." />
+        <meta name="keywords" content="fashion technology, sustainable apparel, futuristic clothing, anime-inspired fashion, ITALACO, premium fashion, sustainable materials" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://italaco.com/" />
+        <meta property="og:title" content="ITALACO | Future of Fashion Technology" />
+        <meta property="og:description" content="Discover ITALACO's cutting-edge fashion with innovative materials and futuristic designs. Premium anime-inspired apparel with sustainable technology." />
+        <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://italaco.com/" />
+        <meta name="twitter:title" content="ITALACO | Future of Fashion Technology" />
+        <meta name="twitter:description" content="Discover ITALACO's cutting-edge fashion with innovative materials and futuristic designs. Premium anime-inspired apparel with sustainable technology." />
+        <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://italaco.com/" />
+
+        {/* Additional SEO metadata */}
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="ITALACO Design Team" />
+      </Helmet>
+
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div 
             key="loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 bg-background z-50 flex items-center justify-center"
           >
             <motion.div 
               className="relative"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <motion.div 
                 className="text-6xl font-bold text-italaco-primary"
@@ -49,7 +77,8 @@ const Index = () => {
                 transition={{ 
                   duration: 1.5,
                   repeat: Infinity,
-                  repeatType: "reverse"
+                  repeatType: "reverse",
+                  ease: "easeInOut"
                 }}
               >
                 ITALACO
@@ -61,7 +90,7 @@ const Index = () => {
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col min-h-screen"
           >
             <Navbar />

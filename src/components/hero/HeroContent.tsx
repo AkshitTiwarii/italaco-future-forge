@@ -10,7 +10,17 @@ interface HeroContentProps {
 }
 
 const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  // Improved content animation with better easing
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"], {
+    ease: [0.22, 1, 0.36, 1] // Custom cubic-bezier for smoother motion
+  });
+
+  const handleScrollToNextSection = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <motion.div 
@@ -89,7 +99,7 @@ const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
         ))}
       </motion.div>
       
-      {/* Scroll indicator */}
+      {/* Scroll indicator with improved animation */}
       <motion.div 
         variants={itemVariants}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
@@ -98,7 +108,7 @@ const HeroContent = ({ scrollYProgress }: HeroContentProps) => {
           variant="ghost" 
           size="sm" 
           className="text-foreground/50 hover:text-italaco-primary hover:bg-transparent flex flex-col gap-2 group"
-          onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
+          onClick={handleScrollToNextSection}
         >
           <span className="text-xs uppercase tracking-widest group-hover:text-italaco-primary transition-colors">Discover</span>
           <ArrowDown className="h-4 w-4 animate-bounce group-hover:text-italaco-primary transition-colors" />

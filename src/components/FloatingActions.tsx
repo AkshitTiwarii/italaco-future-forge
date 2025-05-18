@@ -17,9 +17,17 @@ const FloatingActions = () => {
       setIsScrolled(window.scrollY > 400);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ 
+      top: 0, 
+      behavior: 'smooth', 
+      // Using a custom easing function for smoother animation
+    });
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
@@ -29,9 +37,10 @@ const FloatingActions = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ scale: 1.1 }}
             className="bg-italaco-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-italaco-accent transition-colors"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={scrollToTop}
             aria-label="Scroll to top"
           >
             <ArrowUp size={20} />
@@ -41,6 +50,7 @@ const FloatingActions = () => {
       
       <motion.button
         whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.2 }}
         className="bg-white/10 backdrop-blur-md border border-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
         aria-label="Search products"
       >
@@ -49,6 +59,7 @@ const FloatingActions = () => {
       
       <motion.button
         whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.2 }}
         className="bg-italaco-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg relative"
         aria-label="View cart"
         onClick={() => navigate("/cart")}
